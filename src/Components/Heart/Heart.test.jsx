@@ -1,25 +1,32 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import {render, screen} from '@testing-library/react';
+import '@testing-library/jest-dom';
 import Heart from './Heart';
+import userEvent from '@testing-library/user-event';
 
+ describe('Heart component', () => {
+   
 
-describe('Heart Component', () => {
     it('should render correctly', () => {
-        render(<Heart />);
-        expect(screen.getByTestId('heart')).toBeInTheDocument();
+         render(<Heart/>);
+         expect(screen.getByTestId('heart')).toBeInTheDocument();
     });
 
     it('should render correctly when selected', () => {
-        render(<Heart selected />);
+        render(<Heart selected/>);
         expect(screen.getByTestId('heart')).toBeInTheDocument();
         expect(screen.getByTestId('heart')).toHaveClass('heart-selected');
-    });
+ });
+ it('should call onclick correctly', async () => {
 
-    it('should call onClick correctly', async () => {
-        const onClick = jest.fn();
-        render(<Heart onClick={onClick} />);
-        expect(screen.getByTestId('heart')).toBeInTheDocument();
-        await userEvent.click(screen.getByTestId('heart'));
-        expect(onClick).toBeCalledTimes(1);
-    });
+    const onClick = jest.fn();
+
+    render(<Heart onClick={onClick}/>);
+    expect(screen.getByTestId('heart')).toBeInTheDocument();
+    
+   await userEvent.click(screen.getByTestId('heart'));
+
+    expect(onClick).toBeCalledTimes(1);
+ });
+
+
 });

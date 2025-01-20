@@ -1,31 +1,15 @@
-import { useCallback } from 'react';
 import ListItem from '../Item';
 import './list.style.css';
 
-function List({ favorites = [], items = [], onAddItem, onRemoveItem }) {
-    const handleAddItem = useCallback((item) => {
-        onAddItem && onAddItem(item);
-    }, [onAddItem]);
-
-    const handleRemoveItem = useCallback((item) => {
-        onRemoveItem && onRemoveItem(item);
-    }, [onRemoveItem]);
-
+function List({ items = [] }) {
     const map = items.map((item) => {
-        const isFavorite = favorites.includes(item.id);
         return (
-            <ListItem 
-                isFavorite={isFavorite}
-                item={item}
-                key={item.id}
-                onAddItem={handleAddItem}
-                onRemoveItem={handleRemoveItem}
-            />
+            <ListItem key={item.id} item={item} />
         );
     });
 
     return (
-        <div className='list-wrapper' data-testid='list'>
+        <div className='list-wrapper'>
             <ul className='list'>
                 {map}
             </ul>
